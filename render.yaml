@@ -3,7 +3,7 @@ services:
     name: myBackendApp
     runtime: node
     buildCommand: npm install
-    startCommand: node server.js
+    startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
