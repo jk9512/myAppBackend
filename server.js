@@ -21,19 +21,16 @@ connectDB().then(() => autoSeed());
 const app = express();
 
 // Middleware
-const allowedOrigins = [
-    "http://localhost:5173",
-    process.env.CLIENT_URL,   // e.g. https://your-app.vercel.app
-].filter(Boolean);
-
-app.use(cors({
-    origin: (origin, callback) => {
-        // allow requests with no origin (curl, mobile apps, etc.)
-        if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
-        callback(new Error(`CORS: ${origin} not allowed`));
-    },
+// In production: allow all origins (Vercel, Render previews, etc.)
+// In development: only localhost:5173
+const corsOptions = {
+    origin: process.env.NODE_ENV === "production"
+        ? true  // allow ALL origins in production
+        : ["http://localhost:5173", "http://localhost:3000"],
     credentials: true,
-}));
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
