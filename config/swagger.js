@@ -1,5 +1,16 @@
 const swaggerJsdoc = require("swagger-jsdoc");
 
+const servers = [
+    {
+        url: process.env.SERVER_URL || "http://localhost:5000",
+        description: process.env.NODE_ENV === "production" ? "Production Server" : "Local Development Server",
+    },
+    // Always include localhost as fallback option
+    ...(process.env.NODE_ENV === "production"
+        ? [{ url: "http://localhost:5000", description: "Local Development Server" }]
+        : []),
+];
+
 const options = {
     definition: {
         openapi: "3.0.0",
@@ -11,12 +22,7 @@ const options = {
                 name: "Jay Kachhadiya",
             },
         },
-        servers: [
-            {
-                url: "http://localhost:5000",
-                description: "Local Development Server",
-            },
-        ],
+        servers,
         components: {
             securitySchemes: {
                 bearerAuth: {
