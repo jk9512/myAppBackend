@@ -47,7 +47,16 @@ const swaggerUiOptions = {
     swaggerOptions: { persistAuthorization: true },
 };
 app.use("/api-docs", swaggerUi.serve);
-app.get("/api-docs", swaggerUi.setup(swaggerSpec, swaggerUiOptions));
+app.get("/api-docs", (req, res, next) => {
+    // Dynamically set the server URL from the incoming request
+    // so Swagger works on both localhost AND Render without any env vars
+    const host = req.get("host");
+    const protocol = req.protocol;
+    swaggerSpec.servers = [
+        { url: `${protocol}://${host}`, description: "Current Server" },
+    ];
+    swaggerUi.setup(swaggerSpec, swaggerUiOptions)(req, res, next);
+});
 
 // Optional: serve raw JSON spec
 app.get("/api-docs.json", (req, res) => {
