@@ -20,6 +20,9 @@ connectDB().then(() => autoSeed());
 
 const app = express();
 
+// Trust Render/Heroku reverse proxy so req.protocol === 'https'
+app.set("trust proxy", 1);
+
 // Middleware
 // In production: allow all origins (Vercel, Render previews, etc.)
 // In development: only localhost:5173
