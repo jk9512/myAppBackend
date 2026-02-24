@@ -46,7 +46,8 @@ const swaggerUiOptions = {
     customSiteTitle: "Full-Stack API Docs",
     swaggerOptions: { persistAuthorization: true },
 };
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, swaggerUiOptions));
+app.use("/api-docs", swaggerUi.serve);
+app.get("/api-docs", swaggerUi.setup(swaggerSpec, swaggerUiOptions));
 
 // Optional: serve raw JSON spec
 app.get("/api-docs.json", (req, res) => {
