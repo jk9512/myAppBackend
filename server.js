@@ -23,6 +23,7 @@ const blogRoutes = require("./routes/blog.routes");
 const analyticsRoutes = require("./routes/analytics.routes");
 const chatRoutes = require("./routes/chat.routes");
 const directRoutes = require("./routes/direct.routes");
+const aboutRoutes = require("./routes/about.routes");
 
 // Connect to MongoDB, then auto-seed if collections are empty
 connectDB().then(() => autoSeed());
@@ -183,6 +184,7 @@ app.use("/api/blogs", blogRoutes);
 app.use("/api/analytics", analyticsRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/direct", directRoutes);
+app.use("/api/about", aboutRoutes);
 
 app.get("/api/health", (req, res) => {
     res.json({ success: true, message: "Server running ✅" });

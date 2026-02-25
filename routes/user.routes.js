@@ -1,7 +1,10 @@
 const express = require("express");
+const multer = require("multer");
 const router = express.Router();
-const { createUser, getUsers, getUserById, updateUser, deleteUser } = require("../controllers/user.controller");
+const { createUser, getUsers, getUserById, updateUser, deleteUser, uploadAvatar, serveAvatar } = require("../controllers/user.controller");
 const { protect, adminOnly } = require("../middleware/auth.middleware");
+
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 2 * 1024 * 1024 } });
 
 /**
  * @swagger
@@ -242,5 +245,12 @@ router.put("/:id", protect, adminOnly, updateUser);
  *               $ref: '#/components/schemas/ErrorResponse'
  */
 router.delete("/:id", protect, adminOnly, deleteUser);
+
+// ── Avatar routes ────────────────────────────────────────────────
+// POST /api/users/avatar/me  — logged-in user uploads their own avatar
+router.post("/avatar/me", protect, upload.single("avatar"), uploadAvatar);
+
+// GET /api/users/:id/avatar  — public: serves the avatar image
+router.get("/:id/avatar", serveAvatar);
 
 module.exports = router;

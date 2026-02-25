@@ -1,6 +1,6 @@
-# Maruti Blinds Management System - Backend
+# Business Website Management System - Backend
 
-This is the robust Express.js & Node.js backend server for the Maruti Blinds Management System. It handles API requests, database interactions, authentication, and role-based access control.
+This is the robust Express.js & Node.js backend server for the Business Website Management System. It handles API requests, database interactions, authentication, and role-based access control.
 
 ## 🚀 Technologies Used
 
@@ -29,7 +29,7 @@ Create a `.env` file in the root of the `server` directory and configure the fol
 PORT=5000
 
 # MongoDB Connection String (Local or Atlas)
-MONGO_URI=mongodb://localhost:27017/marutiblinds
+MONGO_URI=mongodb://localhost:27017/BusinessWebsite
 
 # JWT Secret Key for token signing
 JWT_SECRET=your_super_secret_jwt_key_here

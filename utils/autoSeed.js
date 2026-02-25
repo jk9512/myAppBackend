@@ -3,6 +3,7 @@ const Role = require("../models/Role");
 const User = require("../models/User");
 const Testimonial = require("../models/Testimonial");
 const Portfolio = require("../models/Portfolio");
+const AboutUs = require("../models/AboutUs");
 
 /**
  * autoSeed — runs automatically when the server starts.
@@ -75,8 +76,56 @@ const autoSeed = async () => {
             console.log("🌱 Portfolio items seeded (6)");
         }
 
+        // ── 5. About Us ────────────────────────────────────────────────
+        const aboutCount = await AboutUs.countDocuments();
+        if (aboutCount === 0) {
+            await AboutUs.create({
+                headline: "Building Digital Experiences",
+                subheadline: "We craft modern, scalable web solutions tailored to your vision",
+                description: "Sankalp Infotech is a passionate software development studio dedicated to building high-quality web applications. We combine cutting-edge technology with thoughtful design to deliver products that make a difference. Founded with the belief that great software can transform businesses, we work closely with our clients from concept to deployment.",
+                mission: "To deliver world-class software solutions that empower businesses to grow, innovate, and succeed in the digital era.",
+                vision: "A world where every business — regardless of size — has access to premium digital tools and technology.",
+                values: ["Quality First", "Innovation", "Transparency", "Client Success", "Continuous Learning"],
+                stats: [
+                    { label: "Projects Delivered", value: "50+" },
+                    { label: "Happy Clients", value: "30+" },
+                    { label: "Years of Experience", value: "5+" },
+                    { label: "Technologies", value: "20+" },
+                ],
+                team: [
+                    {
+                        name: "Jay Kachhadiya",
+                        role: "Founder & Full-Stack Developer",
+                        bio: "Passionate about building scalable web applications and clean user interfaces. Expert in React, Node.js, and MongoDB.",
+                        avatar: "",
+                        linkedin: "https://linkedin.com",
+                        github: "https://github.com",
+                    },
+                    {
+                        name: "Priya Sharma",
+                        role: "UI/UX Designer",
+                        bio: "Creates beautiful, user-centred designs with a focus on accessibility and modern aesthetics.",
+                        avatar: "",
+                        linkedin: "https://linkedin.com",
+                        github: "",
+                    },
+                    {
+                        name: "Rahul Patel",
+                        role: "Backend Developer",
+                        bio: "Specialises in API design, database optimisation, and cloud infrastructure.",
+                        avatar: "",
+                        linkedin: "https://linkedin.com",
+                        github: "https://github.com",
+                    },
+                ],
+                skills: ["React", "Node.js", "MongoDB", "Express", "Next.js", "PostgreSQL", "Docker", "AWS", "TypeScript", "Figma"],
+                isActive: true,
+            });
+            console.log("🌱 About Us seeded");
+        }
+
         // Only log the summary line if anything was actually seeded
-        const total = roleCount + userCount + testCount + portCount;
+        const total = roleCount + userCount + testCount + portCount + aboutCount;
         if (total === 0) {
             console.log("✅ Auto-seed complete — fresh database is ready!");
         }

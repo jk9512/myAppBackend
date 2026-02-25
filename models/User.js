@@ -31,6 +31,11 @@ const userSchema = new mongoose.Schema(
             ref: "Role",
             default: null,
         },
+        // Profile picture stored as Buffer in MongoDB
+        avatar: {
+            data: { type: Buffer, default: null },
+            contentType: { type: String, default: null },
+        },
     },
     { timestamps: true }
 );
