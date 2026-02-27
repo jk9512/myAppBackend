@@ -23,6 +23,7 @@ const blogRoutes = require("./routes/blog.routes");
 const analyticsRoutes = require("./routes/analytics.routes");
 const chatRoutes = require("./routes/chat.routes");
 const directRoutes = require("./routes/direct.routes");
+const groupRoutes = require("./routes/group.routes");
 const aboutRoutes = require("./routes/about.routes");
 const reelRoutes = require("./routes/reel.routes");
 
@@ -74,6 +75,7 @@ io.on("connection", (socket) => {
             const msg = await Message.create({ room, text: text.trim(), sender });
             io.to(room).emit("new-message", {
                 _id: msg._id,
+                room: msg.room,
                 text: msg.text,
                 sender: msg.sender,
                 createdAt: msg.createdAt,
@@ -185,6 +187,7 @@ app.use("/api/blogs", blogRoutes);
 app.use("/api/analytics", analyticsRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/direct", directRoutes);
+app.use("/api/groups", groupRoutes);
 app.use("/api/about", aboutRoutes);
 app.use("/api/reels", reelRoutes);
 
